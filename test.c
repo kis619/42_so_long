@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 18:00:36 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/03/04 18:58:35 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/03/04 19:02:23 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,6 @@ int	*read_map(void)
 	return (x_y);
 }
 
-
 int	handle_keys(int keycode, mlx_shit *mlx_s)
 {
 	if (keycode == ON_DESTROY)
@@ -160,7 +159,6 @@ void	whatever(void)
 	// paint_it_red(&mlx_s);
 	images_to_screen(&mlx_s, &images);
 	mlx_key_hook(mlx_s.window, handle_keys, &mlx_s);
-	
 	mlx_loop(mlx_s.mlx);
 }
 
