@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 12:21:35 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/03/03 13:24:38 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/03/04 18:45:39 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,29 @@ typedef struct mlx_shit
 	int		*width_height;
 	int		width;
 	int		height;
+	t_pics	images;
 }			mlx_shit;
+
+typedef struct t_indeces
+{
+	int		fd;
+	int		x;
+	int		y;
+}			t_indeces;
+
+enum {
+	ON_KEYDOWN = 125,
+	ON_KEYUP = 126,
+	ON_KEYLEFT = 123,
+	ON_KEYRIGHT = 124,
+	// ON_MOUSEDOWN = 4,
+	// ON_MOUSEUP = 5,
+	// ON_MOUSEMOVE = 6,
+	// ON_EXPOSE = 12,
+	ON_DESTROY = 53,
+};
+
+
 
 int *read_map();
 #endif 

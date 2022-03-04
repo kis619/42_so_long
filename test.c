@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 18:00:36 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/03/04 16:57:09 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/03/04 18:58:35 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,30 @@ void	paint_it_red(mlx_shit *mlx_s)
 	}
 }
 
-void	dimensions(mlx_shit *mlx_s, t_pics *images)
+void	paint_it_COLOUR(mlx_shit *mlx_s, int colour)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	y = 0;
+	while (x++ <= mlx_s->width)
+	{
+		while (y++ <= mlx_s->height)
+		{
+			mlx_pixel_put(mlx_s->mlx, mlx_s->window, x, y, colour);
+		}
+		y = 0;
+	}
+}
+
+void	window_dimensions(mlx_shit *mlx_s, t_pics *images)
 {
 	mlx_s->height = mlx_s->width_height[1] * images->img_height;
 	mlx_s->width = mlx_s->width_height[0] * images->img_width;
 	mlx_s->window = mlx_new_window(mlx_s->mlx, mlx_s->width,
-			mlx_s->height, "Hello world!");
+			mlx_s->height, "Summer wine");
+	mlx_s->images = *images;
 }
 
 void	images_to_screen(mlx_shit *m, t_pics *images)
@@ -111,30 +129,24 @@ int	*read_map(void)
 	return (x_y);
 }
 
-char	read_shit(void)
-{
-	int		fd;
-	char	c[1];
-	int		r;
 
-	fd = open("map_good.ber", O_RDONLY);
-	r = read(fd, c, 1);
-	while (r)
-	{
-		if (c[0] == '1')
-			printf("wall\n");
-		else if (c[0] == '0')
-			printf("empty\n");
-		else if (c[0] == 'C')
-			printf("collectible\n");
-		else if (c[0] == 'E')
-			printf("exit\n");
-		else if (c[0] == 'P')
-			printf("player\n");
-		r = read(fd, c, 1);
-	}
-	return (c[0]);
+int	handle_keys(int keycode, mlx_shit *mlx_s)
+{
+	if (keycode == ON_DESTROY)
+		paint_it_COLOUR(mlx_s, 0x0000FF00);
+	else if (keycode == ON_KEYDOWN)
+		paint_it_COLOUR(mlx_s, 0x44FF0022);
+	else if (keycode == ON_KEYUP)
+		paint_it_COLOUR(mlx_s, 0x000000FF);
+	else if (keycode == ON_KEYLEFT)
+		paint_it_COLOUR(mlx_s, 0x00FF0000);
+	// else if (keycode == ON_KEYRIGHT)
+	// 	mlx_put_image_to_window(mlx_s.);
+
+	// printf("Key code: %d\n", keycode);
+	return (0);
 }
+
 
 void	whatever(void)
 {
@@ -144,11 +156,12 @@ void	whatever(void)
 	mlx_s.mlx = mlx_init();
 	mlx_s.width_height = read_map();
 	images = load_images(&mlx_s);
-	dimensions(&mlx_s, &images);
-	paint_it_red(&mlx_s);
+	window_dimensions(&mlx_s, &images);
+	// paint_it_red(&mlx_s);
 	images_to_screen(&mlx_s, &images);
+	mlx_key_hook(mlx_s.window, handle_keys, &mlx_s);
+	
 	mlx_loop(mlx_s.mlx);
-	mlx_clear_window(mlx_s.mlx, mlx_s.window);
 }
 
 int	main(void)
