@@ -6,9 +6,9 @@
 
 void	read_map(int *x, int *y)
 {
-	char			*line;
-	int				fd;
-	int num;
+	char	*line;
+	int		fd;
+	int		num;
 
 	fd = open("text_file.txt", O_RDONLY);
 	line = get_next_line(fd);
@@ -16,37 +16,61 @@ void	read_map(int *x, int *y)
 	*x = 0;
 	while (line)
 	{
+		if (*x == 0)
+			free(line);
 		line = get_next_line(fd);
+		free(line);
 		(*x)++;
 	}
 	close(fd);
 }
-
-int main (void)
+char	**string_to_matrix()
 {
-	int		x;
-	int		y;
-	char	**map; 
-	char	c[1];
+	int		rows;
+	int		columns;
+	char	**map;
 	int		fd;
 	int 	i = 0;
-	int 	num;
 
 	fd = open("text_file.txt", O_RDONLY);
-	read_map(&x, &y);
-	printf("Columns: %d, rows: %d\n", y, x);
+	read_map(&rows, &columns);
+	printf("Columns: %d, rows: %d\n", columns, rows);
 
-	map = malloc(sizeof(char *) * x + 1);
-	while(i < x)
+	map = malloc(sizeof(char *) * rows + 1);
+	while(i < rows)
 	{
-		map[i] = malloc(sizeof(char) * y + 1);
-		read(fd, map[i], y);
-		read(fd, c, 1);
+		map[i] = malloc(sizeof(char) * columns + 1);
+		read(fd, map[i], columns + 1);
+		map[i][columns + 1] = '\0';
 		i++;
 	}
+
+	map[i] = NULL;
 	printf("Row 1, column 2 = %c\n", map[3][1]);
 	map[3][1] = 'y';
 	printf("Row 1, column 2 = %c\n", map[3][1]);
 	map[3][1] = '8';
-	printf("Row 1, column 2 = %c\n", map[3][1]);
+	printf("Row 1, column 2 = %s\n", map[5]);
+	return (map);
+}
+
+void free_all(char **map)
+{
+	int i = 0;
+
+	while (map[i] != NULL)
+	{
+		free(map[i]);
+		i++;
+	}
+	free(map);
+}
+
+int main (void)
+{
+	char **map;
+
+	map = string_to_matrix();
+	free_all(map);
+	return (0);
 }
