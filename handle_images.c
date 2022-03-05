@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 11:38:52 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/03/05 13:13:14 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/03/05 14:05:42 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	images_to_screen(mlx_shit *m, t_pics *images)
 	}
 }
 
-void	render_map(mlx_shit *mlx_s, t_pics *images)
+void	render_map(mlx_shit *mlx_s)
 {
 	int		j;
 	int		i;
@@ -53,24 +53,24 @@ void	render_map(mlx_shit *mlx_s, t_pics *images)
 	i = 0;
 	while (mlx_s->map[i] != NULL)
 	{
+		// printf("Row %d = %s\n", i, mlx_s->map[i]);
 		j = 0;
-		while (mlx_s->map[j])
+		while (mlx_s->map[i][j])
 		{
-			printf("%c\n", mlx_s->map[i][j]);
 			if (mlx_s->map[i][j] == '1')
 			{
-				img = images->img1;
+				img = mlx_s->images.img1;
 			}
 			else if (mlx_s->map[i][j] == '0')
-				img = images->img2;
+				img = mlx_s->images.img2;
 			else if (mlx_s->map[i][j] == 'C')
-				img = images->img3;
+				img = mlx_s->images.img3;
 			else if (mlx_s->map[i][j] == 'E')
-				img = images->img4;
+				img = mlx_s->images.img4;
 			else if (mlx_s->map[i][j] == 'P')
-				img = images->img5;
+				img = mlx_s->images.img5;
 			mlx_put_image_to_window(mlx_s->mlx, mlx_s->window, img,
-				images->img_width * j, images->img_height * i);
+				mlx_s->images.img_width * j, mlx_s->images.img_height * i);
 			j++;
 		}
 		i++;
