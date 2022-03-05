@@ -6,14 +6,16 @@
 #    By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 13:01:09 by kmilchev          #+#    #+#              #
-#    Updated: 2022/03/04 19:24:42 by kmilchev         ###   ########.fr        #
+#    Updated: 2022/03/05 11:52:30 by kmilchev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 SRC =	main.c \
+		test.c \
 		42_get_next_line/get_next_line.c \
 		42_get_next_line/get_next_line_utils.c \
+		handle_images.c
 		
 OBJs := $(SRC:.c=.o)
 
@@ -39,9 +41,11 @@ clean:
 re: clean all
 
 
-TEST =	test.c \
+TEST =	main.c \
+		test.c \
 		42_get_next_line/get_next_line.c \
 		42_get_next_line/get_next_line_utils.c \
+		handle_images.c
 
 TOBJs = $(TEST:.c=.o)
 
