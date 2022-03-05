@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 18:00:36 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/03/05 15:12:51 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/03/05 16:51:35 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	number_of_columns_rows(int *rows, int *columns)
 int	handle_keys(int keycode, mlx_shit *mlx_s)
 {
 	if (keycode == ON_DESTROY)
-		on_destroy(mlx_s);
+		on_destroy(0, mlx_s);
 	else if (keycode == ON_KEYDOWN)
 	{
 		change_map(mlx_s, 1, 0);

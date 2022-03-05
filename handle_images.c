@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 11:38:52 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/03/05 14:05:42 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/03/05 18:48:09 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	images_to_screen(mlx_shit *m, t_pics *images)
 				img = images->img5;
 			mlx_put_image_to_window(m->mlx, m->window, img,
 				images->img_width * idx.x, images->img_height * idx.y);
+			mlx_destroy_image(m->mlx, img); ////why?
 			idx.x++;
 		}
 		idx.y++;

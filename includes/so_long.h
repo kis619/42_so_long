@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 12:21:35 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/03/05 15:40:16 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/03/05 19:00:56 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ enum {
 };
 
 
-
+void	ft_putstr_fd(char *s, int fd);
 void	number_of_columns_rows(int *x, int *y);
 void	images_to_screen(mlx_shit *m, t_pics *images);
 t_pics	load_images(mlx_shit *mlx_s);
@@ -84,5 +84,5 @@ void change_map(mlx_shit *mlx_s, int row, int col);
 int collectibles(char **map);
 
 //////ON CLICK
-void	on_destroy(mlx_shit *mlx_s);
+int	on_destroy(int key, mlx_shit *mlx_s);
 #endif 

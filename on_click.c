@@ -6,48 +6,44 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:41:16 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/03/05 16:41:24 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/03/05 18:45:36 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <so_long.h>
 
-void on_destroy(mlx_shit *mlx_s)
+int	on_destroy(int keycode, mlx_shit *mlx_s)
 {
 	// mlx_destroy_window(mlx_s->mlx, mlx_s->window);
 	free_all(mlx_s->map);
 	exit(1);
 }
 
-void game_over(mlx_shit *mlx_s)
+void	game_over(mlx_shit *mlx_s)
 {
-	char *string = "Game over";
+	char	*string = "Game over";
+	
 	mlx_s->map[mlx_s->coordinates.row][mlx_s->coordinates.column] = '0';
-	
 	render_map(mlx_s);
-	free_all(mlx_s->map);
 	mlx_string_put(mlx_s->mlx, mlx_s->window, 20, 20, 0x44FF0022, string);
-	
+	mlx_key_hook(mlx_s->window, on_destroy, mlx_s);
 }
 
-void change_map(mlx_shit *mlx_s, int row, int col)
+void	change_map(mlx_shit *mlx_s, int row, int col)
 {
-	char new_square;
-	static char last_square;
-	bool was_E = false;
+	char		new_square;
+	static char	last_square;
+	static bool	was_E = false;
 	
 	printf("Last %c\n", last_square);
 	if (last_square == 'E')
-	{
 		was_E = true;
-	}
 	mlx_s->coordinates = player_position(*mlx_s);
 	row += mlx_s->coordinates.row;
 	col += mlx_s->coordinates.column;
 	new_square = mlx_s->map[row][col];
 	if (new_square == '1')
 		return ;
-	
 	if (new_square == 'E' && !(collectibles(mlx_s->map)))
 	{
 		mlx_s->map[row][col] = 'P';
@@ -64,7 +60,6 @@ void change_map(mlx_shit *mlx_s, int row, int col)
 		was_E = false;
 	}
 	render_map(mlx_s);
-
 }
 
 
