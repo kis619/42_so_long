@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 11:51:32 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/03/05 14:54:47 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/03/05 15:41:35 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(void)
 	////////////////first read of the map and rendering
 	mlx_s.map = string_to_matrix(); //need to free it, but when? - on exit
 	render_map(&mlx_s);
-	
+	// printf("Collectibles: %d\n", collectibles(mlx_s.map));
 	
 
 	///////////////

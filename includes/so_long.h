@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 12:21:35 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/03/05 14:55:50 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/03/05 15:40:16 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	render_map(mlx_shit *mlx_s);
 /////MATRIX
 t_tuple player_position(mlx_shit mlx_s);
 void change_map(mlx_shit *mlx_s, int row, int col);
+int collectibles(char **map);
 
 //////ON CLICK
 void	on_destroy(mlx_shit *mlx_s);

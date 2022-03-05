@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:41:16 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/03/05 16:29:08 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/03/05 16:41:24 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void on_destroy(mlx_shit *mlx_s)
 void game_over(mlx_shit *mlx_s)
 {
 	char *string = "Game over";
+	mlx_s->map[mlx_s->coordinates.row][mlx_s->coordinates.column] = '0';
+	
 	render_map(mlx_s);
 	free_all(mlx_s->map);
 	mlx_string_put(mlx_s->mlx, mlx_s->window, 20, 20, 0x44FF0022, string);
@@ -32,7 +34,7 @@ void change_map(mlx_shit *mlx_s, int row, int col)
 {
 	char new_square;
 	static char last_square;
-	static bool was_E = false;
+	bool was_E = false;
 	
 	printf("Last %c\n", last_square);
 	if (last_square == 'E')
@@ -48,11 +50,11 @@ void change_map(mlx_shit *mlx_s, int row, int col)
 	
 	if (new_square == 'E' && !(collectibles(mlx_s->map)))
 	{
+		mlx_s->map[row][col] = 'P';
 		game_over(mlx_s);
 		return ;
-	}
+	}  
 	last_square = mlx_s->map[row][col];
-	// printf("Last %c\n", last_square);
 	mlx_s->map[row][col] = 'P';
 	if (was_E == false)
 		mlx_s->map[mlx_s->coordinates.row][mlx_s->coordinates.column] = '0';
