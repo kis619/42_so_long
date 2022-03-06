@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 11:51:32 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/03/06 14:42:58 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/03/06 16:35:45 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	main(int argc, char *argv[])
 
 	///////////////
 	mlx_key_hook(mlx_s.window, handle_keys, &mlx_s);	
+	mlx_hook(mlx_s.window, X_CLOSE, 0L, x_close, 0);
 	mlx_loop(mlx_s.mlx);
 	return (0);
 }

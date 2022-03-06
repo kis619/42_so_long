@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 18:00:36 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/03/06 13:58:36 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/03/06 16:37:44 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,27 +43,16 @@ void	number_of_columns_rows(int *rows, int *columns, char* map_path)
 
 int	handle_keys(int keycode, mlx_shit *mlx_s)
 {
-	if (keycode == ON_DESTROY)
+	if (keycode == ESC)
 		on_destroy(0, mlx_s);
-	else if (keycode == ON_KEYDOWN)
-	{
+	else if (keycode == DOWN || keycode == S)
 		change_map(mlx_s, 1, 0);
-			// check_borders();
-	}
-	else if (keycode == ON_KEYUP)
-	{
+	else if (keycode == UP || keycode == W)
 		change_map(mlx_s, -1, 0);
-	}
-	else if (keycode == ON_KEYLEFT)
-	{
+	else if (keycode == LEFT || keycode == A)
 		change_map(mlx_s, 0, -1);
-	}
-	else if (keycode == ON_KEYRIGHT)
-	{
+	else if (keycode == RIGHT || keycode == D)
 		change_map(mlx_s, 0, 1);
-	}
-	else
-		printf("Key code: %d\n", keycode);
 	return (0);
 }
 

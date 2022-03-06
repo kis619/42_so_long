@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 12:21:35 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/03/06 14:18:07 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/03/06 16:35:18 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,16 @@ typedef struct t_indeces
 
 
 enum {
-	ON_KEYDOWN = 125,
-	ON_KEYUP = 126,
-	ON_KEYLEFT = 123,
-	ON_KEYRIGHT = 124,
-	ON_DESTROY = 53,
+	DOWN = 125,
+	UP = 126,
+	LEFT = 123,
+	RIGHT = 124,
+	ESC = 53,
+	W = 13,
+	S = 1,
+	A = 0,
+	D = 2,
+	X_CLOSE = 17,
 };
 
 
@@ -88,6 +93,8 @@ int	is_ber_file(char *map);
 int	checks(int argc, char *argv[], mlx_shit *mlx_s);
 int multiple_players(char **map);
 int only_allowed_chars(char **map);
+
+int	x_close(void *ptr);
 #endif 
 
 
