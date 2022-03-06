@@ -6,7 +6,7 @@
 #    By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 13:01:09 by kmilchev          #+#    #+#              #
-#    Updated: 2022/03/05 14:47:15 by kmilchev         ###   ########.fr        #
+#    Updated: 2022/03/06 12:31:20 by kmilchev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRC =	main.c \
 		matrix_stuff.c \
 		42_get_next_line/get_next_line.c \
 		42_get_next_line/get_next_line_utils.c \
+		input_validation.c \
 		handle_images.c
 		
 OBJs := $(SRC:.c=.o)
@@ -42,6 +43,3 @@ clean:
 	$(RM) *.out *.o so_long
 
 re: clean all
-
-text_editing:
-	gcc y_conversion.c -Iincludes 42_get_next_line/get_next_line.c 42_get_next_line/get_next_line_utils.c

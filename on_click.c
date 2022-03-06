@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:41:16 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/03/05 18:45:36 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/03/06 15:05:59 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	on_destroy(int keycode, mlx_shit *mlx_s)
 {
-	// mlx_destroy_window(mlx_s->mlx, mlx_s->window);
+	mlx_destroy_window(mlx_s->mlx, mlx_s->window);
 	free_all(mlx_s->map);
 	exit(1);
 }
@@ -26,7 +26,9 @@ void	game_over(mlx_shit *mlx_s)
 	mlx_s->map[mlx_s->coordinates.row][mlx_s->coordinates.column] = '0';
 	render_map(mlx_s);
 	mlx_string_put(mlx_s->mlx, mlx_s->window, 20, 20, 0x44FF0022, string);
-	mlx_key_hook(mlx_s->window, on_destroy, mlx_s);
+	on_destroy(53, mlx_s);
+	// free_all(mlx_s->map);
+	// mlx_key_hook(mlx_s->window, on_destroy, mlx_s);
 }
 
 void	change_map(mlx_shit *mlx_s, int row, int col)
@@ -44,7 +46,7 @@ void	change_map(mlx_shit *mlx_s, int row, int col)
 	new_square = mlx_s->map[row][col];
 	if (new_square == '1')
 		return ;
-	if (new_square == 'E' && !(collectibles(mlx_s->map)))
+	if (new_square == 'E' && !(item(mlx_s->map, 'C')))
 	{
 		mlx_s->map[row][col] = 'P';
 		game_over(mlx_s);
@@ -61,6 +63,3 @@ void	change_map(mlx_shit *mlx_s, int row, int col)
 	}
 	render_map(mlx_s);
 }
-
-
-//printf("Row: %d, column %d\n", mlx_s->coordinates.row, mlx_s->coordinates.column);

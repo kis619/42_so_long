@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 18:00:36 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/03/05 16:51:35 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/03/06 13:58:36 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,17 @@ void	window_dimensions(mlx_shit *mlx_s)
 {
 	mlx_s->height *= mlx_s->images.img_height;
 	mlx_s->width *= mlx_s->images.img_width;
-	// printf("Img height: %d\nImg width: %d\n", mlx_s->images.img_height, mlx_s->images.img_width);
 	mlx_s->window = mlx_new_window(mlx_s->mlx, mlx_s->width,
 			mlx_s->height, "Strangers");
 }
 
-void	number_of_columns_rows(int *rows, int *columns)
+void	number_of_columns_rows(int *rows, int *columns, char* map_path)
 {
 	char	*line;
 	int		fd;
 	int		num;
 
-	fd = open("map_good.ber", O_RDONLY);
+	fd = open(map_path, O_RDONLY);
 	line = get_next_line(fd);
 	*columns = (int)ft_strlen(line) - 1;
 	*rows = 0;
@@ -68,7 +67,7 @@ int	handle_keys(int keycode, mlx_shit *mlx_s)
 	return (0);
 }
 
-char	**string_to_matrix()
+char	**string_to_matrix(char *map_path)
 {
 	int		rows;
 	int		columns;
@@ -76,8 +75,8 @@ char	**string_to_matrix()
 	int		fd;
 	int 	i = 0;
 
-	fd = open("map_good.ber", O_RDONLY);
-	number_of_columns_rows(&rows, &columns);
+	fd = open(map_path, O_RDONLY);
+	number_of_columns_rows(&rows, &columns, map_path);
 	map = malloc(sizeof(char *) * rows + 1);
 	while(i < rows)
 	{
@@ -88,8 +87,5 @@ char	**string_to_matrix()
 	}
 
 	map[i] = NULL;
-	printf("Row 16= %s\n", map[i]);
 	return (map);
 }
-
-// int *player_position()

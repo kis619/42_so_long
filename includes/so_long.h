@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 12:21:35 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/03/05 19:00:56 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/03/06 14:18:07 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,29 +60,34 @@ enum {
 	ON_KEYUP = 126,
 	ON_KEYLEFT = 123,
 	ON_KEYRIGHT = 124,
-	// ON_MOUSEDOWN = 4,
-	// ON_MOUSEUP = 5,
-	// ON_MOUSEMOVE = 6,
-	// ON_EXPOSE = 12,
 	ON_DESTROY = 53,
 };
 
 
 void	ft_putstr_fd(char *s, int fd);
-void	number_of_columns_rows(int *x, int *y);
-void	images_to_screen(mlx_shit *m, t_pics *images);
+void	number_of_columns_rows(int *x, int *y, char *map);
 t_pics	load_images(mlx_shit *mlx_s);
 void	window_dimensions(mlx_shit *mlx_s);
 int		handle_keys(int keycode, mlx_shit *mlx_s);
-char	**string_to_matrix();
+char	**string_to_matrix(char *map);
 void	free_all(char **map);
 void	render_map(mlx_shit *mlx_s);
-
+char	*ft_strrchr(const char *s, int c);
+int valid_borders(char **map, char *map_path);
 /////MATRIX
 t_tuple player_position(mlx_shit mlx_s);
 void change_map(mlx_shit *mlx_s, int row, int col);
-int collectibles(char **map);
+int item(char **map, char c);
 
 //////ON CLICK
 int	on_destroy(int key, mlx_shit *mlx_s);
+
+////VALIDATIONS
+char *map_is_valid(mlx_shit *mlx_s, char *map_path);
+int	is_ber_file(char *map);
+int	checks(int argc, char *argv[], mlx_shit *mlx_s);
+int multiple_players(char **map);
+int only_allowed_chars(char **map);
 #endif 
+
+
