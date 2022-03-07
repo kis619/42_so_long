@@ -6,23 +6,39 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:41:16 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/03/06 16:30:22 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/03/07 12:05:15 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <so_long.h>
 
+// int	on_destroy(int keycode, mlx_shit *mlx_s)
+// {
+// 	mlx_destroy_window(mlx_s->mlx, mlx_s->window);
+// 	free_all(mlx_s->map);
+// 	exit(EXIT_SUCCESS);
+// 	return (0);
+// }
+
+// int	x_close(mlx_shit *mlx_s, void *ptr)
+// {
+// 	(void) ptr;
+// 	free_all(mlx_s->map);
+// 	mlx_destroy_window(mlx_s->mlx, mlx_s->window);
+// 	exit(EXIT_SUCCESS);
+// 	return (0);
+// }
 int	on_destroy(int keycode, mlx_shit *mlx_s)
 {
-	mlx_destroy_window(mlx_s->mlx, mlx_s->window);
+	// mlx_destroy_window(mlx_s->mlx, mlx_s->window);
 	free_all(mlx_s->map);
-	exit(1);
+	exit(EXIT_SUCCESS);
 }
 
-int	x_close(void *ptr)
+int	x_close(mlx_shit *mlx_s, void *ptr)
 {
 	(void) ptr;
-	exit(0);
+	exit(EXIT_SUCCESS);
 	return (0);
 }
 
@@ -30,12 +46,12 @@ void	game_over(mlx_shit *mlx_s)
 {
 	char	*string = "Game over";
 	
-	mlx_s->map[mlx_s->coordinates.row][mlx_s->coordinates.column] = '0';
+	mlx_s->map[mlx_s->coordinates.row][mlx_s->coordinates.col] = '0';
 	render_map(mlx_s);
 	mlx_string_put(mlx_s->mlx, mlx_s->window, 20, 20, 0x44FF0022, string);
-	on_destroy(53, mlx_s);
+	// on_destroy(53, mlx_s);
 	// free_all(mlx_s->map);
-	// mlx_key_hook(mlx_s->window, on_destroy, mlx_s);
+	mlx_key_hook(mlx_s->window, on_destroy, mlx_s);
 }
 
 void	change_map(mlx_shit *mlx_s, int row, int col)
@@ -49,7 +65,7 @@ void	change_map(mlx_shit *mlx_s, int row, int col)
 		was_E = true;
 	mlx_s->coordinates = player_position(*mlx_s);
 	row += mlx_s->coordinates.row;
-	col += mlx_s->coordinates.column;
+	col += mlx_s->coordinates.col;
 	new_square = mlx_s->map[row][col];
 	if (new_square == '1')
 		return ;
@@ -62,11 +78,26 @@ void	change_map(mlx_shit *mlx_s, int row, int col)
 	last_square = mlx_s->map[row][col];
 	mlx_s->map[row][col] = 'P';
 	if (was_E == false)
-		mlx_s->map[mlx_s->coordinates.row][mlx_s->coordinates.column] = '0';
+		mlx_s->map[mlx_s->coordinates.row][mlx_s->coordinates.col] = '0';
 	else
 	{
-		mlx_s->map[mlx_s->coordinates.row][mlx_s->coordinates.column] = 'E';
+		mlx_s->map[mlx_s->coordinates.row][mlx_s->coordinates.col] = 'E';
 		was_E = false;
 	}
 	render_map(mlx_s);
 }
+
+
+// int	on_destroy(int keycode, mlx_shit *mlx_s)
+// {
+// 	mlx_destroy_window(mlx_s->mlx, mlx_s->window);
+// 	free_all(mlx_s->map);
+// 	exit(1);
+// }
+
+// int	x_close(void *ptr)
+// {
+// 	(void) ptr;
+// 	exit(0);
+// 	return (0);
+// }

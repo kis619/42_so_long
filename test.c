@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 18:00:36 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/03/06 16:37:44 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/03/07 12:01:54 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	number_of_columns_rows(int *rows, int *columns, char* map_path)
 {
 	char	*line;
 	int		fd;
-	int		num;
 
 	fd = open(map_path, O_RDONLY);
 	line = get_next_line(fd);
@@ -67,9 +66,16 @@ char	**string_to_matrix(char *map_path)
 	fd = open(map_path, O_RDONLY);
 	number_of_columns_rows(&rows, &columns, map_path);
 	map = malloc(sizeof(char *) * rows + 1);
+	if (!map)
+		exit(EXIT_FAILURE);
 	while(i < rows)
 	{
 		map[i] = malloc(sizeof(char) * columns + 1);
+		if (!map[i])
+		{
+			free(map[i]);
+			return (0);
+		}
 		read(fd, map[i], columns + 1);
 		map[i][columns] = '\0';
 		i++;

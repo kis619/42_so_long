@@ -6,7 +6,7 @@
 #    By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 13:01:09 by kmilchev          #+#    #+#              #
-#    Updated: 2022/03/06 12:31:20 by kmilchev         ###   ########.fr        #
+#    Updated: 2022/03/07 12:05:34 by kmilchev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ SRC =	main.c \
 		test.c \
 		on_click.c \
 		utils.c \
-		matrix_stuff.c \
+		items_checks.c \
 		42_get_next_line/get_next_line.c \
 		42_get_next_line/get_next_line_utils.c \
 		input_validation.c \
