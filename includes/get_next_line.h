@@ -18,6 +18,7 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1024
 # endif
+
 char	*get_next_line(int fd);
 char	*read_to_nl_or_eof(int fd, char *line);
 char	*ft_strjoin(char *s1, char *s2);

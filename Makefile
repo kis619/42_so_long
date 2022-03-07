@@ -6,12 +6,14 @@
 #    By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 13:01:09 by kmilchev          #+#    #+#              #
-#    Updated: 2022/03/07 13:28:53 by kmilchev         ###   ########.fr        #
+#    Updated: 2022/03/07 14:18:58 by kmilchev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 SRC =	src/main.c \
+		src/input_validation.c \
+		src/handle_images.c \
 		src/render_map.c \
 		src/handle_keys.c \
 		src/utils.c \
@@ -19,8 +21,6 @@ SRC =	src/main.c \
 		src/map_validation.c \
 		42_get_next_line/get_next_line.c \
 		42_get_next_line/get_next_line_utils.c \
-		src/input_validation.c \
-		src/handle_images.c
 		
 OBJs := $(SRC:.c=.o)
 
@@ -35,9 +35,10 @@ all: $(NAME)
 	$(CC) $(FLAGS) -c $< -o $@
 
 $(NAME): $(OBJs)
+	$(MAKE) -C mlx/
 	$(CC) $(OBJs) -g -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 clean:
-	$(RM) *.out .o so_long
-
+	$(RM) so_long $(OBJs)
+	$(MAKE) clean -C mlx/
 re: clean all

@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:41:16 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/03/07 13:26:37 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/03/07 14:08:38 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,24 @@ void	game_over(t_mlx *mlx_s)
 	mlx_key_hook(mlx_s->window, on_destroy, mlx_s);
 }
 
-void	change_map(t_mlx *mlx_s, int row, int col)
+void	change_map(t_mlx *mlx_s, int row, int col, char new_square)
 {
-	t_map		map;
+	static char	last_square;
 	static bool	was_e = false;
 
-	if (map.last_square == 'E')
+	if (last_square == 'E')
 		was_e = true;
-	set_coordinates(mlx_s, &row, &col, &map);
-	if (map.new_square == '1')
+	set_coordinates(mlx_s, &row, &col);
+	new_square = mlx_s->map[row][col];
+	if (new_square == '1')
 		return ;
-	if (map.new_square == 'E' && !(item(mlx_s->map, 'C')))
+	if (new_square == 'E' && !(item(mlx_s->map, 'C')))
 	{
 		mlx_s->map[row][col] = 'P';
 		game_over(mlx_s);
 		return ;
 	}
-	map.last_square = mlx_s->map[row][col];
+	last_square = mlx_s->map[row][col];
 	mlx_s->map[row][col] = 'P';
 	if (was_e == false)
 		mlx_s->map[mlx_s->coordinates.row][mlx_s->coordinates.col] = '0';
@@ -50,12 +51,11 @@ void	change_map(t_mlx *mlx_s, int row, int col)
 	render_map_with_moves_count(mlx_s);
 }
 
-void	set_coordinates(t_mlx *mlx_s, int *row, int *col, t_map	*map)
+void	set_coordinates(t_mlx *mlx_s, int *row, int *col)
 {
 	mlx_s->coordinates = player_position(*mlx_s);
 	*row += mlx_s->coordinates.row;
 	*col += mlx_s->coordinates.col;
-	map->new_square = mlx_s->map[*row][*col];
 }
 
 void	render_map_with_moves_count(t_mlx *mlx_s)

@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 18:00:36 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/03/07 13:20:31 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/03/07 14:12:04 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,20 @@ int	handle_keys(int keycode, t_mlx *mlx_s)
 	if (keycode == ESC)
 		on_destroy(0, mlx_s);
 	else if (keycode == DOWN || keycode == S)
-		change_map(mlx_s, 1, 0);
+		change_map(mlx_s, 1, 0, 'x');
 	else if (keycode == UP || keycode == W)
-		change_map(mlx_s, -1, 0);
+		change_map(mlx_s, -1, 0, 'x');
 	else if (keycode == LEFT || keycode == A)
-		change_map(mlx_s, 0, -1);
+		change_map(mlx_s, 0, -1, 'x');
 	else if (keycode == RIGHT || keycode == D)
-		change_map(mlx_s, 0, 1);
+		change_map(mlx_s, 0, 1, 'x');
 	return (0);
 }
 
 int	on_destroy(int keycode, t_mlx *mlx_s)
 {
-	if (!keycode)
-		return (0);
+	if (keycode || 0)
+		exit(EXIT_SUCCESS);
 	mlx_destroy_window(mlx_s->mlx, mlx_s->window);
 	free_all(mlx_s->map);
 	exit(EXIT_SUCCESS);
