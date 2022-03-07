@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 12:21:35 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/03/06 16:35:18 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/03/07 13:11:43 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@
 
 typedef	struct pics
 {
-	void	*img1;
-	void	*img2;
-	void	*img3;
-	void	*img4;
-	void	*img5;
+	void	*wall;
+	void	*floor;
+	void	*coll;
+	void	*door;
+	void	*player;
 	int		img_width;
 	int		img_height;
 }			t_pics;
@@ -33,10 +33,10 @@ typedef	struct pics
 typedef struct t_tuple
 {
 	int row;
-	int column;
+	int col;
 }			t_tuple;
 
-typedef struct mlx_shit
+typedef struct t_mlx
 {
 	void	*mlx;
 	void	*window;
@@ -45,15 +45,30 @@ typedef struct mlx_shit
 	t_pics	images;
 	char	**map;
 	t_tuple coordinates;
-}			mlx_shit;
+	int		row;
+	int		col;
+}			t_mlx;
 
-typedef struct t_indeces
+typedef struct file_read
 {
+	char	*line;
 	int		fd;
-	int		x;
-	int		y;
-}			t_indeces;
+}			t_file_read;
 
+typedef struct map
+{
+	char	new_square;
+	char	last_square;
+} t_map;
+
+typedef struct bullshit
+{
+	int		rows;
+	int		columns;
+	char	**map;
+	int		fd;
+	int		i;
+}	t_data;
 
 enum {
 	DOWN = 125,
@@ -71,30 +86,39 @@ enum {
 
 void	ft_putstr_fd(char *s, int fd);
 void	number_of_columns_rows(int *x, int *y, char *map);
-t_pics	load_images(mlx_shit *mlx_s);
-void	window_dimensions(mlx_shit *mlx_s);
-int		handle_keys(int keycode, mlx_shit *mlx_s);
+t_pics	load_images(t_mlx *mlx_s);
+void	window_dimensions(t_mlx *mlx_s);
+int		handle_keys(int keycode, t_mlx *mlx_s);
 char	**string_to_matrix(char *map);
 void	free_all(char **map);
-void	render_map(mlx_shit *mlx_s);
+void	render_map(t_mlx *mlx_s);
 char	*ft_strrchr(const char *s, int c);
 int valid_borders(char **map, char *map_path);
 /////MATRIX
-t_tuple player_position(mlx_shit mlx_s);
-void change_map(mlx_shit *mlx_s, int row, int col);
+t_tuple player_position(t_mlx mlx_s);
+void change_map(t_mlx *mlx_s, int row, int col);
 int item(char **map, char c);
 
 //////ON CLICK
-int	on_destroy(int key, mlx_shit *mlx_s);
+int	on_destroy(int key, t_mlx *mlx_s);
 
 ////VALIDATIONS
-char *map_is_valid(mlx_shit *mlx_s, char *map_path);
+char *map_is_valid(t_mlx *mlx_s, char *map_path);
 int	is_ber_file(char *map);
-int	checks(int argc, char *argv[], mlx_shit *mlx_s);
+int	checks(int argc, char *argv[], t_mlx *mlx_s);
 int multiple_players(char **map);
 int only_allowed_chars(char **map);
 
-int	x_close(void *ptr);
+int	x_close(void);
+
+void render_map_with_moves_count (t_mlx *mlx_s);
+
+void	set_coordinates(t_mlx *mlx_s, int *row, int *col, t_map	*map);
+
+////////VALIDATIONS
+int	map_is_rectangular(char *map_path);
+int	file_exists(char *map_path);
+// static int	ft_count_positions(int n);
+// static void	ft_add_to_list(char *lst_chars, unsigned int number, int count);
+char	*ft_itoa(int n);
 #endif 
-
-

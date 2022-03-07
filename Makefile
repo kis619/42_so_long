@@ -6,20 +6,21 @@
 #    By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 13:01:09 by kmilchev          #+#    #+#              #
-#    Updated: 2022/03/07 12:05:34 by kmilchev         ###   ########.fr        #
+#    Updated: 2022/03/07 13:28:53 by kmilchev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
-SRC =	main.c \
-		test.c \
-		on_click.c \
-		utils.c \
-		items_checks.c \
+SRC =	src/main.c \
+		src/render_map.c \
+		src/handle_keys.c \
+		src/utils.c \
+		src/utils2.c \
+		src/map_validation.c \
 		42_get_next_line/get_next_line.c \
 		42_get_next_line/get_next_line_utils.c \
-		input_validation.c \
-		handle_images.c
+		src/input_validation.c \
+		src/handle_images.c
 		
 OBJs := $(SRC:.c=.o)
 
@@ -30,16 +31,13 @@ FLAGS = -Wall -Wextra -Werror -Iincludes
 
 all: $(NAME)
 
-# %.o: %.c
-# 	$(CC) $(FLAGS) -c $< -o $@
-
 %.o: %.c
-	$(CC) -Iincludes -c $< -o $@
+	$(CC) $(FLAGS) -c $< -o $@
 
 $(NAME): $(OBJs)
 	$(CC) $(OBJs) -g -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 clean:
-	$(RM) *.out *.o so_long
+	$(RM) *.out .o so_long
 
 re: clean all
