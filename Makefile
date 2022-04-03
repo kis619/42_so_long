@@ -6,7 +6,7 @@
 #    By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 13:01:09 by kmilchev          #+#    #+#              #
-#    Updated: 2022/03/07 14:18:58 by kmilchev         ###   ########.fr        #
+#    Updated: 2022/04/03 17:25:04 by kmilchev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,24 +21,25 @@ SRC =	src/main.c \
 		src/map_validation.c \
 		42_get_next_line/get_next_line.c \
 		42_get_next_line/get_next_line_utils.c \
-		
-OBJs := $(SRC:.c=.o)
 
 
 # -I[/path/to/header-files]
 # Add search path to header files (.h) or (.hpp).
-FLAGS = -Wall -Wextra -Werror -Iincludes
+FLAGS = -Wall -Wextra -Werror -Iincludes -g -Lmlx -lmlx -framework OpenGL -framework AppKit -o
 
 all: $(NAME)
 
 %.o: %.c
 	$(CC) $(FLAGS) -c $< -o $@
 
-$(NAME): $(OBJs)
+$(NAME): 
 	$(MAKE) -C mlx/
-	$(CC) $(OBJs) -g -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) $(SRC) $(FLAGS) $(NAME)
 
 clean:
-	$(RM) so_long $(OBJs)
+	$(RM) so_long
+	
+fclean: clean
 	$(MAKE) clean -C mlx/
-re: clean all
+	
+re: fclean all
