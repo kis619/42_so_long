@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   items_checks.c                                     :+:      :+:    :+:   */
+/*   map_validation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 14:36:18 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/03/07 13:09:31 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/03 18:17:00 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,32 @@
 
 //Returns a string with an error message if the item is not present on the map,
 //0 if everything is fine
+int free_and_return(t_mlx *mlx_all, char *message)
+{
+	free_all(mlx_all->map);
+	return(message);
+}
+
 char	*map_is_valid(t_mlx *mlx_s, char *map_path)
 {
 	if (!map_is_rectangular(map_path))
 		return ("Error\nMap is not rectangular.\n");
 	mlx_s->map = string_to_matrix(map_path);
 	if (!only_allowed_chars(mlx_s->map))
-		return ("Error\nThe map contains forbidden characters.\n");
+	free_and_return(mlx_s, "Error\nThe map contains forbidden characters.\n");
 	if (!valid_borders(mlx_s->map, map_path))
-		return ("Error\nThe map is not enclosed by borders.\n");
+	free_and_return(mlx_s, "Error\nThe map is not enclosed by borders.\n");
 	if (!item(mlx_s->map, 'C'))
-		return ("Error\nThere are no collectibles on the map.\n");
+	free_and_return(mlx_s, "Error\nThere are no collectibles on the map.\n");
 	if (!item(mlx_s->map, 'P'))
-		return ("Error\nThere is no player on the map.\n");
+	free_and_return(mlx_s, "Error\nThere is no player on the map.\n");
 	if (!item(mlx_s->map, 'E'))
-		return ("Error\nThere is no exit on the map.\n");
+	free_and_return(mlx_s, "Error\nThere is no exit on the map.\n");
 	if (multiple_players(mlx_s->map))
-		return ("Error\nThere is more than 1 player on the map.\n");
+	free_and_return(mlx_s, "Error\nThere is more than 1 player on the map.\n");
 	free_all(mlx_s->map);
 	return (0);
-}
+} 
 
 //Returns 1 if the char is present on the map, 0 if not.
 int	item(char **map, char c)
