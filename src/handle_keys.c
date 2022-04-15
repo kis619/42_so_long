@@ -44,8 +44,7 @@ int	x_close(void)
 t_tuple	player_position(t_mlx mlx_s)
 {
 	t_tuple	idx;
-	bool	found_p;
-	t_tuple	coordinates;
+// 	bool	found_p;
 
 	idx.row = 0;
 	found_p = false;
@@ -56,16 +55,15 @@ t_tuple	player_position(t_mlx mlx_s)
 		{
 			if (mlx_s.map[idx.row][idx.col] == 'P')
 			{
-				found_p = true;
-				break ;
+// 				found_p = true;
+// 				break ;
+				return (idx);
 			}
 			idx.col++;
 		}
-		if (found_p)
-			break ;
+// 		if (found_p)
+// 			break ;
 		idx.row++;
 	}
-	coordinates.row = idx.row;
-	coordinates.col = idx.col;
-	return (coordinates);
+	return (idx);
 }
