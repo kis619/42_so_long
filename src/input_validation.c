@@ -40,7 +40,7 @@ int	checks(int argc, char *argv[], t_mlx *mlx_s)
 	return (1);
 }
 
-//Returns 1 if the map is rectangular, 0 if not
+//Returns 1 if the file doesn't exist, 0 if not
 int	file_exists(char *map_path)
 {
 	int	fd;
