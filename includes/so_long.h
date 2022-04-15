@@ -56,7 +56,7 @@ typedef struct file_read
 }			t_file_read;
 
 
-typedef struct bullshit
+typedef struct s_data
 {
 	int		rows;
 	int		columns;
